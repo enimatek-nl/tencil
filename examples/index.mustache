@@ -1,0 +1,30 @@
+{{>begin}}
+
+<h4>Todos</h4>
+<table>
+    <thead>
+        <tr>
+        <th>id</th>
+        <th>checked</th>
+        <th>message</th>
+        </tr>
+    </thead>
+    <tbody>
+    {{#todos}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{checked}}</td>
+            <td>{{message}}</td>
+        </tr>
+    {{/todos}}
+    </tbody>
+</table>
+
+{{! comment about 'show' to demo hide a block }}
+{{#show}}
+    <div>
+        <h1>dont show this!</h1>
+    </div>
+{{/show}}
+
+{{>end}}
