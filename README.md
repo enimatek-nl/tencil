@@ -3,7 +3,7 @@
 Tencil is a mustache-compatible JSON based template engine for Nim.
 It aims to be a very light and easy to use template engine which is:
 
-  - compatible with mustache {{.}}, {{>.}} (aka partials), {{!.}} (aka comments), {{#.}} and {{/.}} 
+  - compatible with mustache `{{.}}`, `{{>.}}` (aka partials), `{{!.}}` (aka comments), `{{#.}}` and `{{/.}}` 
   - uses JsonNode as model for the template
   - only uses system nim libraries and is very lightweight in code
 
