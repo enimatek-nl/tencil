@@ -27,19 +27,19 @@ proc compile(self: Tencil, partial: Tpartial, child: JsonNode, first: int, last:
         if partial.tag_names[i].startsWith(re"{{#"):
             let t = partial.scope.substr(partial.tag_pos[i].first + 3, partial.tag_pos[i].last - 2) # get the actual tagname
             let e = partial.tag_names.find("{{/" & t & "}}") # get the index of the closing tag (needed for scoping or skip)
+            i += 1 # failsafe
             if not child{t}.isNil:
                 # check if the value is a boolean or int or json object to recurse
                 if child{t}.kind == JBool or child{t}.kind == JInt:
-                    if child{t}.kind == JBool and child{t}.to(bool): i += 1
-                    elif child{t}.kind == JInt and child{t}.to(int) > 0: i += 1
-                    else: i = e + 1 #skip a whole block if the int or bool is not positive
+                    # Int and Bool that is negative should skip the block
+                    if child{t}.kind == JBool and not child{t}.to(bool): i = e + 1
+                    if child{t}.kind == JInt and not child{t}.to(int) > 0: i = e + 1
                 elif child{t}.kind == JArray:
                     if e != -1:
                         # recursive go through this block
                         for node in child{t}.to(seq[JsonNode]):
                             self.compile(partial, node, i + 1, e)
                         i = e + 1
-                else: i += 1 #shouldnt happen?
         elif partial.tag_names[i].startsWith(re"{{/") or partial.tag_names[i].startsWith(re"{{!"):
             # we can skip closing and comment tags
             i += 1
