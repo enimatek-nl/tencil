@@ -8,10 +8,18 @@ It aims to be a very light and easy to use template engine which is:
   - only uses system nim libraries and is very lightweight in code
 
 ### Installation
+
 Use nimble to install the package
 ```sh
 $ nimble install tencil
 ```
+
+### Changes
+
+  - 0.1.2
+  Removed the `re` deps in favor of `strutils` to not depend on `pcre` dlls on windows
+  - 0.1.0
+  Initial release
 
 ### Learn by example
 
